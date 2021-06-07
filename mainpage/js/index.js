@@ -3,11 +3,7 @@ const games = document.querySelectorAll(".game");
 games.forEach((el) => {
   el.addEventListener("click", (event) => {
     // TODO Feature flagi do usunięcia
-    if (
-      el.id != "gameId=3&name=Nasa Puzzle" &&
-      el.id != "gameId=4&name=Memory" &&
-      el.id != "gameId=5&name=Puzzle"
-    ) {
+    if (el.id != "gameId=4&name=Memory" && el.id != "gameId=5&name=Puzzle") {
       params = el.id;
       location.href = "game.html?" + params;
     }
@@ -22,20 +18,20 @@ games.forEach((el) => {
   };
 
   dIcon.addEventListener("click", (event) => {
-    var re = new RegExp("gameId=([0-9]*)&name=[a-zA-Z0-9]*");
+    var re = new RegExp("gameId=([0-9]*)&name=([a-zA-Z0-9 ]*)");
     var match = re.exec(el.id);
-    downloadGame(match[1]);
+    downloadGame(match[1], match[2]);
     event.stopPropagation();
   });
 });
 
-function downloadGame(gameId) {
+function downloadGame(gameId, name) {
   // TODO Feature flagi do usunięcia
-  if (gameId == 1 || gameId == 2) {
+  if (gameId == 1 || gameId == 2 || gameId == 3) {
     console.log("Download game with id " + gameId);
     var h = httpGet(ulrs[gameId]);
     var blob = new Blob([h], { type: "text/plain;charset=utf-8" });
-    saveAs(blob, "game.html");
+    saveAs(blob, name + ".html");
   }
 }
 
