@@ -2,9 +2,18 @@ const games = document.querySelectorAll(".game");
 
 games.forEach((el) => {
   el.addEventListener("click", (event) => {
-    params = el.id;
-    location.href = "game.html?" + params;
+    // TODO Feature flagi do usunięcia 
+    if (
+      el.id != 'gameId=3&name=Nasa Puzzle' &&
+      el.id != 'gameId=4&name=Memory' &&
+      el.id != 'gameId=5&name=Puzzle'
+    ){
+      params = el.id;
+      location.href = "game.html?" + params;
+    }
+    //
   });
+
 
   var dIcon = el.getElementsByClassName("downloadIcon")[0];
   el.onmouseover = function () {
