@@ -3,10 +3,11 @@ const games = document.querySelectorAll(".game");
 games.forEach((el) => {
   el.addEventListener("click", (event) => {
     // TODO Feature flagi do usunięcia
-    if (el.id != "gameId=4&name=Memory") {
-      params = el.id;
-      location.href = "game.html?" + params;
-    }
+    // if (el.id != "gameId=4&name=Memory") {
+      
+    // }
+    params = el.id;
+    location.href = "game.html?" + params;
   });
 
   var dIcon = el.getElementsByClassName("downloadIcon")[0];
