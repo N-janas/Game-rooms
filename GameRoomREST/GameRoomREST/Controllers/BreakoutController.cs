@@ -7,9 +7,11 @@ using System.Web.Mvc;
 
 namespace GameRoomREST.Controllers
 {
+
     public class BreakoutController : Controller
     {
         // GET: Breakout
+
         public String Index()
         {
             StreamReader sr = System.IO.File.OpenText(Server.MapPath("Games/breakout.txt"));

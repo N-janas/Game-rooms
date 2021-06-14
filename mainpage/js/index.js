@@ -3,10 +3,19 @@ const games = document.querySelectorAll(".game");
 games.forEach((el) => {
   el.addEventListener("click", (event) => {
     // TODO Feature flagi do usunięcia
-    if (el.id != "gameId=4&name=Memory") {
-      params = el.id;
-      location.href = "game.html?" + params;
-    }
+    //if (el.id != "gameId=4&name=Memory") {
+    //  params = el.id;
+    //  location.href = "game.html?" + params;
+    //}
+	if(el.id == "gameId=6&name=Frog")
+	{
+		location.href = "https://pobierac.itch.io/kapusta";
+	}
+	else
+	{
+	params = el.id;
+	location.href = "game.html?" + params;
+	}
   });
 
   var dIcon = el.getElementsByClassName("downloadIcon")[0];
@@ -27,7 +36,7 @@ games.forEach((el) => {
 
 function downloadGame(gameId, name) {
   // TODO Feature flagi do usunięcia
-  if (gameId == 1 || gameId == 2 || gameId == 3 || gameId == 5) {
+  if (gameId == 1 || gameId == 2 || gameId == 3 || gameId == 5 || gameId == 6) {
     console.log("Download game with id " + gameId);
     var h = httpGet(ulrs[gameId]);
     var blob = new Blob([h], { type: "text/plain;charset=utf-8" });
