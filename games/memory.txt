@@ -461,7 +461,7 @@ Game.prototype.print = function () {
                 output += "<td onclick='moveHandler(this);' id='" + i + "-" + j + "'>" +
                     "<div id='js-flip-1' class='flip'>" +
                     "<div class='card'>" +
-                    "<div class='face front'><img class='memoryFrontImage' src='tile.png'></div>" +//tutaj przod karty z szarą okladka
+                    "<div class='face front'><img class='memoryFrontImage' src='https://imgur.com/a/LspwAjd'></div>" +//tutaj przod karty z szarą okladka
                     "<div class='face back' style='background:" + colorForThisTile + "'></div>" +//tutaj to co z drugiej strony; w tym momencie kolor
                     "</div>" +
                     "</div></td>"
@@ -473,7 +473,7 @@ Game.prototype.print = function () {
                 output += "<td onclick='moveHandler(this);' id='" + i + "-" + j + "'>" +
                     "<div id='js-flip-1' class='flip'>" +
                     "<div class='card'>" +
-                    "<div class='face front'><img class='memoryFrontImage' src='tile.png'></div>" +//tutaj przod karty z szarą okladka
+                    "<div class='face front'><img class='memoryFrontImage' src='https://imgur.com/a/LspwAjd'></div>" +//tutaj przod karty z szarą okladka
                     "<div class='"+ mathSizeClass + " face back ' style='background: white;'>" + mathForThisTile +"</div>" +//tutaj to co z drugiej strony; w tym momencie wzor
                     "</div>" 
                     "</div></td>"
