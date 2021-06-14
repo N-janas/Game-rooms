@@ -1,0 +1,672 @@
+<!DOCTYPE html>
+<html>
+    <head>
+        <meta name="viewport" content="width=device-width, initial-scale=1.0, user-scalable=no">
+        <link rel="stylesheet" href="style.css">
+        <script src="https://polyfill.io/v3/polyfill.min.js?features=es6"></script>
+        <script id="MathJax-script" async src="https://cdn.jsdelivr.net/npm/mathjax@3/es5/tex-mml-chtml.js"></script>
+        <script src="script.js"></script>
+    </head>
+	<style>
+		body {
+    font-family: monospace;
+    color: #f1f1f1;
+    background: rgb(41, 41, 41);
+}
+
+.center {
+    margin: auto;
+    width: 50%;
+    padding-top: 12vh;
+  }
+
+#centerMenu {
+    position: fixed;
+    top: 50%;
+    left: 50%;
+    width: 60em;
+    height: 18em;
+    margin-top: -9em;
+    margin-left: -30em;
+}
+
+.range-wrap {
+    position: relative;
+    margin: 0 auto 3rem;
+}
+
+.range {
+    width: 100%;
+}
+
+input[type=range]::-webkit-slider-runnable-track {
+    width: 100%;
+    height: 20px;
+    cursor: pointer;
+    background: gray;
+    border-radius: 25px;
+}
+
+input[type=range]::-webkit-slider-thumb {
+    height: 25px;
+    width: 20px;
+    border-radius: 50%;
+    background: yellow;
+    box-shadow: 0 0 4px 0 rgba(0, 0, 0, 1);
+    cursor: pointer;
+    -webkit-appearance: none;
+    margin-top: 2px;
+}
+
+.bubble {
+    background: lightgrey;
+    color: black;
+    font-size: 50px;
+    padding: 8px 24px;
+    position: absolute;
+    border-radius: 10px;
+    left: 50%;
+    transform: translateX(-50%);
+}
+
+.bubble::after {
+    content: "";
+    position: absolute;
+    width: 2px;
+    height: 2px;
+    background: white;
+    top: -1px;
+    left: 50%;
+}
+
+.coolButton {
+    margin: auto;
+    width: 50%;
+    color: #FFF;
+    transition: all 0.5s;
+    position: relative;
+}
+
+.coolButton::before {
+    content: '';
+    position: absolute;
+    top: 0;
+    left: 0;
+    width: 100%;
+    height: 100%;
+    z-index: 1;
+    background-color: rgba(255, 255, 255, 0.1);
+    transition: all 0.3s;
+}
+
+.coolButton:hover::before {
+    opacity: 0;
+    transform: scale(0.5, 0.5);
+}
+
+.coolButton::after {
+    content: '';
+    position: absolute;
+    top: 0;
+    left: 0;
+    width: 100%;
+    height: 100%;
+    z-index: 1;
+    opacity: 0;
+    transition: all 0.3s;
+    border: 1px solid rgba(255, 255, 255, 0.5);
+    transform: scale(1.2, 1.2);
+}
+
+.coolButton:hover::after {
+    opacity: 1;
+    transform: scale(1, 1);
+}
+
+.modeBtn {
+    line-height: 50px;
+    height: 50px;
+    text-align: center;
+    width: 250px;
+    cursor: pointer;
+}
+
+.btn {
+    line-height: 50px;
+    height: 50px;
+    text-align: center;
+    width: 250px;
+    cursor: pointer;
+}
+
+a, a:link, a:visited, a:hover, a:active {
+    text-decoration: none;
+    font-size: 0.8em;
+    color: #000000;
+}
+
+.hidden {
+    visibility: inherit;
+    display: none;
+}
+
+.visible {
+    display: block;
+    visibility: visible;
+}
+
+.memoryImg {
+    width: 100%;
+}
+
+#memory>table {
+    table-layout: fixed;
+    border-collapse: collapse;
+    width: 100%;
+    height: 100%;
+}
+
+#memory>table td {
+    padding: 0;
+    margin: 0;
+    min-width: 2em;
+    width: 2em;
+    min-height: 2em;
+    height: 2em;
+}
+
+.memoryFrontImage{
+    width: 100%;
+    height: 100%;
+}
+
+.flip {
+    -webkit-perspective: 800;
+    width: 100%;
+    height: 100%;
+    display: inline-block;
+    position: relative;
+    background-color: rgb(41, 41, 41);
+    /* margin: 50px auto; */
+}
+.flip .card.flipped {
+    -webkit-transform: rotatey(-180deg);
+}
+.flip .card {
+    width: 100%;
+    height: 100%;
+    -webkit-transform-style: preserve-3d;
+    -webkit-transition: 0.5s;
+}
+.flip .card .face {
+    width: 100%;
+    height: 100%;
+    position: absolute;
+    -webkit-backface-visibility: hidden;
+    z-index: 2;
+    font-family: Georgia;
+    /* font-size: 3em; */
+    text-align: center;
+}
+.flip .card .front {
+    position: absolute;
+    z-index: 1;
+    background: rgb(41, 41, 41);
+    color: white;
+    cursor: pointer;
+}
+.flip .card .back {
+    -webkit-transform: rotatey(-180deg);
+    color: black;
+    border-radius: 20px;
+    cursor: pointer;
+}
+
+.switch-field {
+    margin: auto;
+    display: flex;
+    width: 98%;
+	margin-bottom: 36px;
+	overflow: hidden;
+}
+
+.switch-field input {
+	position: absolute !important;
+	height: 1px;
+	clip: rect(0, 0, 0, 0);
+	width: 1px;
+	overflow: hidden;
+	border: 0;
+}
+
+.switch-field label {
+	background-color: #ffffff;
+	font-size: 24px;
+	color: rgba(0, 0, 0, 0.59);
+	padding: 9px 15px;
+	line-height: 1;
+	text-align: center;
+	border: 1px solid rgba(0, 0, 0, 0.3);
+	transition: all 0.1s ease-in-out;
+	margin-right: -1px;
+}
+
+.switch-field label:hover {
+	cursor: pointer;
+}
+
+.switch-field input:checked + label {
+	background-color: #3975cf;
+}
+
+.switch-field label:first-of-type {
+	border-radius: 5px 0 0 5px;
+}
+
+.switch-field label:last-of-type {
+	border-radius: 0 5px 5px 0;
+}
+
+@media all and (orientation: portrait) {
+    #memory {
+        width: 44vh;
+        height: 44vh;
+    }
+    #memory>table td {
+        border: 4px solid rgb(41, 41, 41);
+    }
+    #centerMenu {
+        width: 22em;
+        height: 18em;
+        margin-top: -18em;
+        margin-left: -11em;
+    }
+
+    .center {
+        margin: auto;
+        width: 50%;
+        padding-top: 28vh;
+    }
+    
+    .mathBack2{
+        font-size: 3.7vh;
+    }
+
+    .mathBack4{
+        font-size: 2.2vh;
+    }
+
+    .mathBack6{
+        font-size: 1.1vh;
+    }
+
+
+}
+
+@media all and (orientation: landscape) {
+    #memory {
+        width: 70vh;
+        height: 70vh;
+    }
+    #memory>table td {
+        border: 4px solid rgb(41, 41, 41);
+    }
+    #centerMenu {
+        width: 50em;
+        height: 18em;
+        margin-top: -13em;
+        margin-left: -25em;
+    }
+
+    .center {
+        margin: auto;
+        width: 50%;
+        padding-top: 12vh;
+    }
+
+    .switch-field {
+        width: 43%;
+    }
+    
+    .mathBack2{
+        font-size: 5vh;
+    }
+
+    .mathBack4{
+        font-size: 3vh;
+    }
+
+    .mathBack6{
+        font-size: 1.75vh;
+    }
+}
+	</style>
+    <body>
+	
+        <div id="centerMenu">
+            <h1 style="text-align:center">
+                Oto gra Memory... <br>
+                Wybierz poniżej ilość kafelek na jednym boku
+            </h1>
+            <div class="range-wrap" style="width: 75%; height: 9%; padding-top: 10px; padding-bottom: 4em;">
+                <input type="range" id="sideLenSlider" class="range" value="3" min="2" max="6" step="2">
+                <output class="bubble"></output>
+            </div>     
+            <h1 style="text-align:center">
+                Wybierz tryb
+            </h1>
+            
+            <div class="switch-field">
+                <input type="radio" id="radio-one" name="switch-one" value="Kolory"/>
+                <label for="radio-one">Kolory</label>
+                <input type="radio" id="radio-two" name="switch-one" value="Matematyka" checked/>
+                <label for="radio-two">Matematyka</label>
+            </div>
+            <div class="btn coolButton" onclick="onPlayClicked()">
+                <span>Graj!</span>
+            </div>
+        </div>
+        
+        <div id="memory" class="hidden"></div>
+		
+		<script>
+		
+const TileState = { "unflipped": 1, "flippedAsFirst": 2, "flippedAndMatched": 3, }
+Object.freeze(TileState)
+//tworzenie planszy
+const Game = function (size, elem, mode) {
+    this.size = size;
+    this.elem = elem;
+    this.mode = mode;
+    this.board = [];
+
+    var c = 0;
+    for (var i = 0; i < this.size; i++) {
+        this.board.push([]);
+        //kazda karta ma swoje dane
+        for (var j = 0; j < this.size; j++) {
+            var memoryCard = {
+                'id': i + "-" + j,//po tym id rozpoznajemy karte na widoku
+                'matchingId': undefined,//po tym id rozpoznajemy jaki obrazek kryje karta; oczywiscie dwie karty w grze maja takie samo matchingid
+                'tileState': TileState.unflipped,//dostepne stany u gory i chyba mowa same za siebie
+            };
+            this.board[i].push(memoryCard);
+            c++;
+        }
+    }
+    //przydzielamy losowo idiki do dopasowań
+    var assignedIds = []
+    var assignedMatchingIds = []
+    for (var m = 0; m < (size * size) / 2; m++) {
+        var firstTileToAssignMatchingId = getNotAssignedYetTile(this.board.flat(), assignedIds)
+        assignedIds.push(firstTileToAssignMatchingId.id)
+        var secondTileToAssignMatchingId = getNotAssignedYetTile(this.board.flat(), assignedIds)
+        assignedIds.push(secondTileToAssignMatchingId.id)
+        var matchingIdToAssign;
+        while(true){
+            matchingIdToAssign = randomNum(0, 17);
+            assignedMatchingIds.sort();
+            if(!assignedMatchingIds.includes(matchingIdToAssign))
+                break;
+        }
+        assignedMatchingIds.push(matchingIdToAssign);
+        firstTileToAssignMatchingId.matchingId = secondTileToAssignMatchingId.matchingId = matchingIdToAssign
+    }
+
+};
+
+function randomNum(min, max) {
+    min = Math.ceil(min);
+    max = Math.floor(max);
+    return Math.floor(Math.random() * (max - min + 1)) + min;
+}
+
+function getNotAssignedYetTile(tiles, assignedIds) {
+    var tileToRet = tiles[Math.floor(Math.random() * tiles.length)]
+    var checkedId = tileToRet.id
+    while (assignedIds.includes(checkedId)) {
+        tileToRet = tiles[Math.floor(Math.random() * tiles.length)]
+        checkedId = tileToRet.id
+        //jezeli wpadnie w nieskonczona petle to znaczy ze dales rozgrywke z nieparzysta liczba
+        //kart... wtedy nigdy nie przydzieli parzystej ilosci par dla matchingIds
+    }
+    return tileToRet
+}
+
+Game.prototype.checkCompletion = function () {
+    for (let i = 0; i < this.board.flat().length; i++) {
+        if (this.board.flat()[i].tileState != TileState.flippedAndMatched)
+            return false;
+    }
+    setTimeout(() => {
+        alert("Gratulacje!");
+    }, 500);
+    return true;
+};
+
+//printujemy gierke
+Game.prototype.print = function () {
+    let output = "<table>";
+
+    //zapisujemy sobie te ktore juz sie przydzielily zeby zabrac drugi wzor matematyczny pasujacy
+    var occurencies = [];
+    for (let i = 0; i < this.board.length; i++) {
+        output += "<tr>";
+
+        for (let j = 0; j < this.board[i].length; j++) {
+
+            if(this.mode == "col"){
+
+                var colorForThisTile = getColorForTile(this.board[i][j].matchingId)
+                output += "<td onclick='moveHandler(this);' id='" + i + "-" + j + "'>" +
+                    "<div id='js-flip-1' class='flip'>" +
+                    "<div class='card'>" +
+                    "<div class='face front'><img class='memoryFrontImage' src='tile.png'></div>" +//tutaj przod karty z szarą okladka
+                    "<div class='face back' style='background:" + colorForThisTile + "'></div>" +//tutaj to co z drugiej strony; w tym momencie kolor
+                    "</div>" +
+                    "</div></td>"
+            }else if (this.mode == "math"){
+
+                var mathForThisTile = getMathForThisTile(this.board[i][j].matchingId, occurencies[this.board[i][j].matchingId])
+                occurencies[this.board[i][j].matchingId] = true;  
+                var mathSizeClass = "mathBack" + this.size.toString();
+                output += "<td onclick='moveHandler(this);' id='" + i + "-" + j + "'>" +
+                    "<div id='js-flip-1' class='flip'>" +
+                    "<div class='card'>" +
+                    "<div class='face front'><img class='memoryFrontImage' src='tile.png'></div>" +//tutaj przod karty z szarą okladka
+                    "<div class='"+ mathSizeClass + " face back ' style='background: white;'>" + mathForThisTile +"</div>" +//tutaj to co z drugiej strony; w tym momencie wzor
+                    "</div>" 
+                    "</div></td>"
+            }
+            else{
+                console.log("Nie ma takiego trybu");
+            }
+
+            }
+
+        output += "</tr>";
+    }
+    this.elem.innerHTML = output + "</table>";
+    MathJax.typeset()
+
+};
+
+//w obecnej wersji maksymalna ilosc par to 36 bo 6 moze miec bok maksymalnie czyli mamy dostepne 18 kolorkow
+function getColorForTile(tileMatchingId) {
+    if (tileMatchingId == 0)
+        return "blue"
+    else if (tileMatchingId == 1)
+        return "yellow"
+    else if (tileMatchingId == 2)
+        return "gray"
+    else if (tileMatchingId == 3)
+        return "white"
+    else if (tileMatchingId == 4)
+        return "green"
+    else if (tileMatchingId == 5)
+        return "pink"
+    else if (tileMatchingId == 6)
+        return "black"
+    else if (tileMatchingId == 7)
+        return "chocolate"
+    else if (tileMatchingId == 8)
+        return "darkmagenta"
+    else if (tileMatchingId == 9)
+        return "olive"
+    else if (tileMatchingId == 10)
+        return "salmon"
+    else if (tileMatchingId == 11)
+        return "red"
+    else if (tileMatchingId == 12)
+        return "teal"
+    else if (tileMatchingId == 12)
+        return "seagreen"
+    else if (tileMatchingId == 13)
+        return "slateblue"
+    else if (tileMatchingId == 14)
+        return "powderblue"
+    else if (tileMatchingId == 15)
+        return "beige"
+    else if (tileMatchingId == 16)
+        return "aqua"
+    else if (tileMatchingId == 17)
+        return "brown"
+    else alert("nie ma takiego id jeszcze")
+}
+
+function getMathForThisTile(tileMatchingId, secondOccurence) {
+    // return "\\(\\begin{aligned}[t] \\\\[3pt] sin(x) \\end{aligned}\\)";
+    if (tileMatchingId == 0)
+        return secondOccurence ? "$$ \\int{x}$$" : "$$x^2 \\over 2$$"
+    else if (tileMatchingId == 1)
+        return secondOccurence ? "$$ \\int{x^n}$$" : "$$x^{n+1} \\over n + 1$$"
+    else if (tileMatchingId == 2)
+        return secondOccurence ? "$$ \\int{1 \\over x}$$" : "$$ln|x|$$"
+    else if (tileMatchingId == 3)
+        return secondOccurence ? "$$ \\int{sin(x)}$$" : "$$-cos(x)$$"
+    else if (tileMatchingId == 4)
+        return secondOccurence ? "$$ \\int{cos(x)}$$" : "$$sin(x)$$"
+    else if (tileMatchingId == 5)
+        return secondOccurence ? "$$ \\int{tg(x)}$$" : "$$-ln|cos(x)|$$"
+    else if (tileMatchingId == 6)
+        return secondOccurence ? "$$\\int{ctg(x)}$$" : "$$ln|sin(x)|$$"
+    else if (tileMatchingId == 7)
+        return secondOccurence ? "$$\\int{e^x}$$" : "$$e^x$$"
+    else if (tileMatchingId == 8)
+        return secondOccurence ? "$$\\int{1 \\over cos^2(x)}$$" : "$$tg(x)$$"
+    else if (tileMatchingId == 9)
+        return secondOccurence ? "$$\\int{1 \\over sin^2(x)}$$" : "$$-ctg(x)$$"
+    else if (tileMatchingId == 10)
+        return secondOccurence ? "$$\\int{a^x}$$" : "$$a^x \\over ln a$$"
+    else if (tileMatchingId == 11)
+        return secondOccurence ? "$$\\int{e^{ax} }$$" : "$$e^{ax} \\over a$$"
+    else if (tileMatchingId == 12)
+        return secondOccurence ? "$$\\int{cos(ax)}$$" : "$$sin(x) \\over a$$"
+    else if (tileMatchingId == 12)
+        return secondOccurence ? "$$\\int{sin(ax) }$$" : "$$-cos(x) \\over a$$"
+    else if (tileMatchingId == 13)
+        return secondOccurence ? "$$\\int{1 \\over x^2 + 1}$$" : "$$arctg(x)$$"
+    else if (tileMatchingId == 14)
+        return secondOccurence ? "$$\\int{1 \\over \\sqrt{1 - x^2}}$$" : "$$arcsin(x)$$"
+    else if (tileMatchingId == 15)
+        return secondOccurence ? "$$\\int{1 \\over \\sqrt{a^2 - x^2}}$$" : "$$arcsin {x \\over a}$$"
+    else if (tileMatchingId == 16)
+        return secondOccurence ? "$$\\int{1 \\over ax + b }$$" : "$$ln|ax+b| \\over a$$"
+    else if (tileMatchingId == 17)
+        return secondOccurence ? "$$\\int{ch \\; x}$$" : "$$sh \\; x$$"
+    else alert("nie ma takiego id jeszcze")
+}
+
+
+Game.prototype.move = function (moveRowIndex, moveColumnIndex, dontPrint) {
+    var clickedElementBoardObject = this.board[moveRowIndex][moveColumnIndex]
+    if (clickedElementBoardObject.tileState == TileState.flippedAsFirst
+        || clickedElementBoardObject.tileState == TileState.flippedAndMatched) {
+        return;//nie wykonuj ruchu jesli klinales w juz kliknieta tile albo zmatchowaną
+    }
+
+    var clickedElement = document.getElementById(moveRowIndex + "-" + moveColumnIndex)
+
+    var firstClickedElementInMoveBoardObject = this.board.flat().find(el => el.tileState == TileState.flippedAsFirst)
+    if (firstClickedElementInMoveBoardObject == undefined) {
+        clickedElement.firstChild.firstChild.className = "card flipped"
+        clickedElementBoardObject.tileState = TileState.flippedAsFirst
+    } else {
+        var elementClickedAtFirstPartOfThisMove = document.getElementById(firstClickedElementInMoveBoardObject.id)
+        clickedElement.firstChild.firstChild.className = "card flipped"
+
+        if (firstClickedElementInMoveBoardObject.matchingId == clickedElementBoardObject.matchingId) {
+            firstClickedElementInMoveBoardObject.tileState = TileState.flippedAndMatched
+            clickedElementBoardObject.tileState = TileState.flippedAndMatched
+        } else {
+            firstClickedElementInMoveBoardObject.tileState = TileState.unflipped
+            setTimeout(() => {
+                clickedElement.firstChild.firstChild.className = "card"
+                elementClickedAtFirstPartOfThisMove.firstChild.firstChild.className = "card"
+            }, 420);
+        }
+    }
+
+
+
+};
+
+function moveHandler(elem) {
+    memory.move(...elem.id.split("-").map(Number));
+
+    memory.checkCompletion()
+}
+
+window.onload = load;
+var memory;
+
+function onPlayClicked() {
+    document.getElementById("centerMenu").className = "hidden"
+    document.getElementById("memory").className = "center"
+
+    var mode =  document.getElementById("radio-one").checked ? "col" : "math";
+
+    var sideLen = document.getElementById("sideLenSlider").value
+
+    memory = new Game(sideLen, document.getElementById("memory"), mode);
+
+    memory.print();
+}
+
+function load() {
+    const allRanges = document.querySelectorAll(".range-wrap");
+    allRanges.forEach(wrap => {
+        const range = wrap.querySelector(".range");
+        const bubble = wrap.querySelector(".bubble");
+
+        range.addEventListener("input", () => {
+            setMainMenuValueBubble(range, bubble);
+        });
+        setMainMenuValueBubble(range, bubble);
+    });
+
+}
+
+
+///////////// WYBOR TRUDNOSCI LOGIKA
+
+function setMainMenuValueBubble(range, bubble) {
+    const min = range.min ? range.min : 0;
+    const val = range.value;
+    const max = range.max ? range.max : 100;
+    const finalValueIGuess =
+        Number(((val - min) * 100) / (max - min));
+    bubble.innerHTML = val;
+
+    bubble.style.left =
+        `calc(${finalValueIGuess}% + (${8 - finalValueIGuess * 0.15}px))`;
+}
+
+
+
+
+
+		</script>
+		
+    </body>
+</html>
