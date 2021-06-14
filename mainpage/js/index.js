@@ -3,7 +3,6 @@ const games = document.querySelectorAll(".game");
 games.forEach((el) => {
   el.addEventListener("click", (event) => {
     // TODO Feature flagi do usunięcia
-<<<<<<< HEAD
     //if (el.id != "gameId=4&name=Memory") {
     //  params = el.id;
     //  location.href = "game.html?" + params;
@@ -17,13 +16,6 @@ games.forEach((el) => {
 	params = el.id;
 	location.href = "game.html?" + params;
 	}
-=======
-    // if (el.id != "gameId=4&name=Memory") {
-      
-    // }
-    params = el.id;
-    location.href = "game.html?" + params;
->>>>>>> 88226937a58366d1eec2207680c3950c317cb585
   });
 
   var dIcon = el.getElementsByClassName("downloadIcon")[0];
