@@ -44,7 +44,7 @@ function showHelp() {
 
   Swal.fire({
     title: "Help and Info",
-    text: "Tutaj niech ktoś coś wymyśli...  It is a long established fact that a reader will be distracted by the readable content of a page when looking at its layout. The point of using Lorem Ipsum is that it has a more-or-less normal distribution of letters, as opposed to using Content here, content here, making it look like readable English. Many desktop publishing packages and web page editors now use Lorem Ipsum as their default model text, and a search for lorem ipsum will uncover many web sites still in their infancy. Various versions have evolved over the years, sometimes by accident, sometimes on purpose (injected humour and the like).",
+    text: "Witam w naszym Game Room! Oddajemy w twoje ręce najprawdziwszy salon gier. Instrukcja obsługi\n: Wybierz dowolną grę w którą chcesz zagrać, następnie kliknij ją. Zostaniesz przekierowany do wybranej gry, możesz teraz w nią zagrać. Aby się cofnąć po prostu użyj przycisku z przeglądarki do cofnięcia się do poprzedniej strony. Dodatkowo masz możliwość pobrania dowolnej gry, za pomocą przycisku pobierania. Da ci to możliwość zagrania w grę w trybie offline.",
     width: 600,
     padding: "1em",
     confirmButtonColor: "#3085d6",
