@@ -3,7 +3,7 @@ var ulrs = {
     2: 'https://raw.githubusercontent.com/N-janas/Game-rooms/main/games/lights_out.txt',
     3: 'https://raw.githubusercontent.com/N-janas/Game-rooms/main/games/nasapuzzle.txt',
     4: '',
-    5: '',
+    5: 'https://raw.githubusercontent.com/N-janas/Game-rooms/main/games/puzzle.txt',
   };
   
   function httpGet(theUrl) {
